@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enes Yiğit Cebeci</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF7F2;
+    --navy: #1B2A4A;
+    --forest: #3D6B52;
+    --slate: #5C7A8A;
+    --tan: #E8DCC8;
+    --navy-dim: rgba(27,42,74,0.65);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--navy);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  h1,h2,h3 { font-family: 'Source Serif 4', serif; letter-spacing: -0.01em; }
+  a { color: inherit; text-decoration: none; }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    background: rgba(250,247,242,0.88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(27,42,74,0.07);
+  }
+  nav .wrap {
+    display: flex; align-items: center;
+    justify-content: space-between; height: 68px;
+  }
+  .nav-name {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.05rem; font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+  .nav-name span { color: var(--forest); }
+  .navlinks {
+    display: flex; gap: 32px;
+    font-size: 0.88rem; font-weight: 500;
+    color: var(--navy-dim);
+  }
+  .navlinks a:hover { color: var(--navy); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 120px 0 80px;
+    position: relative; overflow: hidden;
+  }
+
+  /* Signature element: a single slow-moving EKG line as ambient background */
+  .ekg-bg {
+    position: absolute; bottom: 30%; left: 0; right: 0;
+    opacity: 0.06; pointer-events: none;
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+    position: relative; z-index: 1;
+  }
+
+  .hero-left {}
+
+  .eyebrow {
+    font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--forest); margin-bottom: 20px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .eyebrow::before {
+    content: ''; width: 5px; height: 5px;
+    border-radius: 50%; background: var(--forest);
+  }
+
+  h1.name {
+    font-size: clamp(2.6rem, 5vw, 3.8rem);
+    font-weight: 700; line-height: 1.06;
+    margin-bottom: 8px;
+  }
+  h1.name em { font-style: italic; color: var(--forest); }
+
+  .hero-tagline {
+    font-size: 1rem; color: var(--slate);
+    margin-bottom: 28px; font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  .hero-bio {
+    font-size: 1.05rem; color: var(--navy-dim);
+    max-width: 480px; margin-bottom: 36px;
+    line-height: 1.75;
+  }
+
+  .hero-links { display: flex; gap: 14px; flex-wrap: wrap; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 10px 20px; border-radius: 100px;
+    font-size: 0.88rem; font-weight: 600;
+    transition: all 0.2s;
+  }
+  .pill-primary { background: var(--navy); color: var(--cream); }
+  .pill-primary:hover { background: var(--forest); }
+  .pill-ghost { border: 1px solid rgba(27,42,74,0.22); color: var(--navy); }
+  .pill-ghost:hover { border-color: var(--navy); }
+
+  /* Right side - stats/identity cards */
+  .hero-right {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .id-card {
+    background: white;
+    border: 1px solid rgba(27,42,74,0.08);
+    border-radius: 8px; padding: 22px 20px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .id-card:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(27,42,74,0.08); }
+  .id-card:first-child { grid-column: 1 / -1; }
+  .card-label {
+    font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--slate); margin-bottom: 10px;
+  }
+  .card-value {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.05rem; font-weight: 600;
+    color: var(--navy); line-height: 1.4;
+  }
+  .card-sub {
+    font-size: 0.82rem; color: var(--slate);
+    margin-top: 4px;
+  }
+  .card-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--forest);
+    display: inline-block; margin-right: 6px;
+    animation: blink 2s ease-in-out infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  /* SECTION BASE */
+  section { padding: 100px 0; }
+  .section-label {
+    font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--slate); margin-bottom: 16px;
+  }
+  h2.section-title {
+    font-size: clamp(1.7rem, 3vw, 2.2rem);
+    max-width: 580px; margin-bottom: 18px;
+    line-height: 1.2;
+  }
+  .section-intro {
+    color: var(--navy-dim); max-width: 540px;
+    font-size: 1rem; margin-bottom: 48px;
+  }
+
+  /* WORK */
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .work-card {
+    background: white;
+    border: 1px solid rgba(27,42,74,0.08);
+    border-radius: 8px; padding: 30px 26px;
+    display: flex; flex-direction: column;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .work-card:hover { transform: translateY(-3px); box-shadow: 0 6px 24px rgba(27,42,74,0.09); }
+  .work-tag {
+    font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 5px 11px; border-radius: 100px;
+    margin-bottom: 18px; display: inline-block; width: fit-content;
+  }
+  .tag-startup { background: rgba(61,107,82,0.12); color: var(--forest); }
+  .tag-research { background: rgba(27,42,74,0.08); color: var(--navy); }
+  .tag-competition { background: rgba(92,122,138,0.15); color: var(--slate); }
+  .work-card h3 { font-size: 1.1rem; margin-bottom: 10px; }
+  .work-card p { font-size: 0.9rem; color: var(--navy-dim); flex: 1; line-height: 1.65; }
+  .work-card .card-status {
+    margin-top: 20px; font-size: 0.8rem;
+    color: var(--slate); font-weight: 500;
+  }
+
+  /* RESEARCH */
+  .research-section { background: var(--navy); }
+  .research-section .section-label { color: rgba(250,247,242,0.45); }
+  .research-section h2.section-title { color: var(--cream); }
+  .research-section .section-intro { color: rgba(250,247,242,0.6); }
+
+  .research-items { display: flex; flex-direction: column; gap: 1px; background: rgba(250,247,242,0.1); border-radius: 6px; overflow: hidden; }
+  .research-item {
+    background: var(--navy); padding: 28px 32px;
+    display: grid; grid-template-columns: 1fr auto;
+    align-items: start; gap: 20px;
+  }
+  .research-item h3 { font-size: 1rem; color: var(--cream); margin-bottom: 6px; }
+  .research-item p { font-size: 0.88rem; color: rgba(250,247,242,0.55); }
+  .research-badge {
+    font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 100px; white-space: nowrap;
+    background: rgba(61,107,82,0.2); color: #7db896;
+  }
+
+  /* CONTACT */
+  .contact-section { background: var(--tan); }
+  .contact-inner {
+    max-width: 560px;
+  }
+  .contact-inner h2 { margin-bottom: 16px; }
+  .contact-inner p { color: var(--navy-dim); margin-bottom: 32px; }
+  .contact-links { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy); color: rgba(250,247,242,0.4);
+    padding: 36px 0; font-size: 0.85rem;
+  }
+  footer .wrap { display: flex; justify-content: space-between; align-items: center; }
+  footer span { color: var(--forest); }
+
+  @media (max-width: 860px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+    .work-grid { grid-template-columns: 1fr; }
+    .hero-right { grid-template-columns: 1fr 1fr; }
+    .navlinks { display: none; }
+    section { padding: 72px 0; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="nav-name">Enes Yiğit <span>Cebeci</span></div>
+    <div class="navlinks">
+      <a href="#work">Work</a>
+      <a href="#research">Research</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <svg class="ekg-bg" viewBox="0 0 1200 120" preserveAspectRatio="none" height="120">
+    <path d="M0,60 L200,60 L220,40 L240,60 L260,60 L280,10 L300,110 L320,60 L340,45 L360,60 L600,60 L620,40 L640,60 L660,60 L680,10 L700,110 L720,60 L740,45 L760,60 L1200,60"
+      fill="none" stroke="#1B2A4A" stroke-width="2"/>
+  </svg>
+  <div class="wrap">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="eyebrow">Istanbul, Turkey &mdash; 2026</div>
+        <h1 class="name">Enes Yiğit<br><em>Cebeci</em></h1>
+        <p class="hero-tagline">Physics · AI · Health Technology</p>
+        <p class="hero-bio">
+          <!-- Bio placeholder — fill in later -->
+          15-year-old researcher and founder working at the intersection of quantum physics, machine learning, and cardiovascular health. Currently building toward IB Diploma (Maths AA HL, Physics HL) while running two ventures and publishing original research.
+        </p>
+        <div class="hero-links">
+          <a href="#work" class="pill pill-primary">See my work</a>
+          <a href="#contact" class="pill pill-ghost">Get in touch</a>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="id-card">
+          <div class="card-label">Currently</div>
+          <div class="card-value"><span class="card-dot"></span>Corlumen &mdash; Stealth</div>
+          <div class="card-sub">Cardiovascular diagnostics startup. In development.</div>
+        </div>
+        <div class="id-card">
+          <div class="card-label">Competition</div>
+          <div class="card-value">GQMC Semi-Finalist</div>
+          <div class="card-sub">Global Quantum Mechanics Challenge 2026</div>
+        </div>
+        <div class="id-card">
+          <div class="card-label">Research</div>
+          <div class="card-value">Quantum Tunneling</div>
+          <div class="card-sub">C–H activation, WKB modeling</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <div class="section-label">Work</div>
+    <h2 class="section-title">What I'm building.</h2>
+    <p class="section-intro">A mix of independent research, early-stage ventures, and academic writing — all pointing in the same direction.</p>
+    <div class="work-grid">
+      <div class="work-card">
+        <span class="work-tag tag-startup">Startup</span>
+        <h3>Corlumen</h3>
+        <p>Cardiovascular diagnostics using wearable biosensors and machine learning. Building a low-cost arrhythmia detection system powered by EKG signal analysis and Fourier-based processing.</p>
+        <div class="card-status">Stealth &mdash; hardware prototype in progress</div>
+      </div>
+      <div class="work-card">
+        <span class="work-tag tag-startup">Platform</span>
+        <h3>Netra</h3>
+        <p>Peer academic mentoring platform for IB and IGCSE students. Connecting students who need support with those who have recently navigated the same curriculum.</p>
+        <div class="card-status">Co-founder</div>
+      </div>
+      <div class="work-card">
+        <span class="work-tag tag-research">Writing</span>
+        <h3>Wondria</h3>
+        <p>Science writing for a general audience. Contributing articles at the intersection of physics, biology, and emerging technology.</p>
+        <div class="card-status">Regular contributor</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="research" class="research-section">
+  <div class="wrap">
+    <div class="section-label">Research</div>
+    <h2 class="section-title">Original work in physics and computation.</h2>
+    <p class="section-intro">Independent research conducted alongside secondary school, targeting peer-reviewed publication.</p>
+    <div class="research-items">
+      <div class="research-item">
+        <div>
+          <h3>Quantum Tunneling in Enzymatic C–H Activation</h3>
+          <p>WKB-based numerical simulation of proton/hydrogen tunneling through Eckart barriers in enzymatic catalysis. Includes KIE modeling and tunneling-corrected Arrhenius analysis. Targeting Journal of Emerging Investigators (JEI). Mentored by Doç. Dr. Ertuğrul Karaca.</p>
+        </div>
+        <span class="research-badge">In Progress</span>
+      </div>
+      <div class="research-item">
+        <div>
+          <h3>Quantum-Assisted Hurricane Forecasting</h3>
+          <p>Theoretical argument for quantum computing's advantage over classical methods in chaotic atmospheric modeling. Submitted to Pathways to Quantum (Global Industry Challenge), July 2026.</p>
+        </div>
+        <span class="research-badge">Submitted</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact-section">
+  <div class="wrap">
+    <div class="contact-inner">
+      <div class="section-label">Contact</div>
+      <h2 class="section-title">Let's talk.</h2>
+      <p>I'm always interested in research collaborations, mentorship, and conversations about physics, AI, and health technology.</p>
+      <div class="contact-links">
+        <a href="mailto:enes@example.com" class="pill pill-primary">Email me</a>
+        <a href="https://linkedin.com" target="_blank" class="pill pill-ghost">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>Enes Yiğit Cebeci &mdash; <span>Istanbul, 2026</span></div>
+    <div>Physics · AI · Health Technology</div>
+  </div>
+</footer>
+
+</body>
+</html>
